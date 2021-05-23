@@ -1,0 +1,20 @@
+version: '3'
+
+services: 
+    aerospike:
+        image: aerospike/aerospike-server:3.14.1.10
+        command: ['--config-file', '/opt/aerospike/etc/aerospike.conf']
+        volumes:
+          - ./aerospike:/opt/aerospike/etc
+        ports:
+          - '3000:3000'
+          - '3001:3001'
+          - '3002:3002'
+          - '3003:3003'
+    
+      amc:
+        image: aerospike/amc:4.0.25
+        ports:
+          - '8081:8081'
+        depends_on:
+          - aerospike
